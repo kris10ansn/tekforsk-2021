@@ -1,21 +1,25 @@
-import path from "path";
 import fs from "fs";
 import { createStream, dataPathFactory } from "./files";
 import { createClient, recognizeText } from "./azure";
-import { formatRecognitionResponse, loadDotEnv, logWithLabel } from "./util";
+import {
+    createPath,
+    formatRecognitionResponse,
+    loadDotEnv,
+    logWithLabel,
+} from "./util";
 
 loadDotEnv();
 
 const { KEY, ENDPOINT } = process.env;
-const DATA_PATH = path.join(__dirname, "..", "data");
+const DATA_PATH = createPath("..", "data");
 
 const client = createClient(KEY!, ENDPOINT!);
 
-const createPath = dataPathFactory(DATA_PATH);
-const imageNames = fs.readdirSync(createPath("/"));
+const createDataPath = dataPathFactory(DATA_PATH);
+const imageNames = fs.readdirSync(createDataPath("/"));
 
 imageNames
-    .map(createPath)
+    .map(createDataPath)
     .map(createStream)
     .forEach((image, i) => {
         recognizeText(client, image)
