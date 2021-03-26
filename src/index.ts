@@ -10,11 +10,9 @@ import {
 } from "./util";
 
 const { KEY, ENDPOINT } = env();
-const DATA_PATH = createPath("data");
-
 const client = createClient(KEY!, ENDPOINT!);
 
-const createDataPath = createDataPathFactory(DATA_PATH);
+const createDataPath = createDataPathFactory(createPath("data"));
 const imageNames = fs.readdirSync(createDataPath("/"));
 
 imageNames.map(createPipe(createDataPath, createStream)).forEach((image, i) => {
