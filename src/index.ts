@@ -3,6 +3,7 @@ import { createStream, dataPathFactory } from "./files";
 import { createClient, recognizeText } from "./azure";
 import {
     createPath,
+    env,
     formatRecognitionResponse,
     loadDotEnv,
     logWithLabel,
@@ -10,7 +11,7 @@ import {
 
 loadDotEnv();
 
-const { KEY, ENDPOINT } = process.env;
+const [KEY, ENDPOINT] = env("KEY", "ENDPOINT");
 const DATA_PATH = createPath("data");
 
 const client = createClient(KEY!, ENDPOINT!);
