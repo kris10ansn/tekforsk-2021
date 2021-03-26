@@ -11,7 +11,7 @@ import {
 loadDotEnv();
 
 const { KEY, ENDPOINT } = process.env;
-const DATA_PATH = createPath("..", "data");
+const DATA_PATH = createPath("data");
 
 const client = createClient(KEY!, ENDPOINT!);
 
