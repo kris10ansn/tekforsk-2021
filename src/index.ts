@@ -1,11 +1,10 @@
-import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
 import { createStream, dataPathFactory } from "./files";
 import { createClient, recognizeText } from "./azure";
-import { formatRecognitionResponse, logWithLabel } from "./util";
+import { formatRecognitionResponse, loadDotEnv, logWithLabel } from "./util";
 
-dotenv.config();
+loadDotEnv();
 
 const { KEY, ENDPOINT } = process.env;
 const DATA_PATH = path.join(__dirname, "..", "data");
