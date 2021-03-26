@@ -15,7 +15,9 @@ export const formatRecognitionResponse = (
 export const loadDotEnv = () => dotenv.config();
 
 export const env = (...names: string[]) =>
-    names.map((name) => process.env[name]);
+    names.map((name) => ({
+        [name]: process.env[name],
+    }));
 
 export const createPath = (...args: string[]) =>
     path.join(__dirname, "..", ...args);
