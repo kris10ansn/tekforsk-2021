@@ -12,12 +12,12 @@ export const formatRecognitionResponse = (
         region.lines?.map((line) => line.words?.map((word) => word.text))
     );
 
-export const loadDotEnv = () => dotenv.config();
+const loadDotEnv = () => dotenv.config();
 
-export const env = (...names: string[]) =>
-    names.map((name) => ({
-        [name]: process.env[name],
-    }));
+export const env = () => {
+    loadDotEnv();
+    return process.env;
+};
 
 export const createPath = (...args: string[]) =>
     path.join(__dirname, "..", ...args);
