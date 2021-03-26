@@ -1,5 +1,5 @@
 import fs from "fs";
-import { createStream, dataPathFactory } from "./files";
+import { createStream, createDataPathFactory } from "./files";
 import { createClient, recognizeText } from "./azure";
 import {
     createPath,
@@ -14,7 +14,7 @@ const DATA_PATH = createPath("data");
 
 const client = createClient(KEY!, ENDPOINT!);
 
-const createDataPath = dataPathFactory(DATA_PATH);
+const createDataPath = createDataPathFactory(DATA_PATH);
 const imageNames = fs.readdirSync(createDataPath("/"));
 
 imageNames.map(createPipe(createDataPath, createStream)).forEach((image, i) => {
