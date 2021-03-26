@@ -1,0 +1,17 @@
+{
+    "name": "tekforsk-2021-ivar-node",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "scripts": {
+        "start": "node dist/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@azure/cognitiveservices-computervision": "^7.1.0",
+        "@azure/ms-rest-js": "^2.2.3",
+        "dotenv": "^8.2.0"
+    }
+}
