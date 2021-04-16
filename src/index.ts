@@ -29,12 +29,9 @@ const recognizeAll = () => {
 const recognizeCapture = () => {
     const imagePath = createDataPath("webcam.jpg");
 
-    captureImage(imagePath).then(() => {
-        const image = createStream(imagePath);
+    captureImage(imagePath).then((image) => {
         recognizeText(client, image)
             .then(formatRecognitionResponse)
             .then(logWithLabel("webcam image"));
     });
 };
-
-recognizeCapture();
