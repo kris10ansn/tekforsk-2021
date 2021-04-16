@@ -3,7 +3,7 @@ import { createStream, dataPathFactory } from "./files";
 import { createClient, recognizeText } from "./azure";
 import {
     createPath,
-    createPipe,
+    pipe,
     env,
     formatRecognitionResponse,
     logWithLabel,
@@ -16,7 +16,7 @@ const createDataPath = dataPathFactory(createPath("data"));
 const imageNames = fs.readdirSync(createDataPath("/"));
 
 imageNames
-    .map(createPipe(createDataPath, createStream))
+    .map(pipe(createDataPath, createStream))
     .forEach((image, i) =>
         recognizeText(client, image)
             .then(formatRecognitionResponse)

@@ -37,14 +37,5 @@ export const pipe = <
     F extends Array<(arg: A, ...args: any[]) => any>,
     R extends ReturnType<LastElement<F>>
 >(
-    arg: A,
     ...functions: F
-): R => functions.reduce((prev, cur) => cur(prev), arg) as R;
-
-export const createPipe = <
-    A,
-    F extends Array<(arg: A, ...args: any[]) => any>,
-    R extends ReturnType<LastElement<F>>
->(
-    ...functions: F
-) => (arg: A) => pipe<A, F, R>(arg, ...functions);
+) => (arg: A) => functions.reduce((prev, cur) => cur(prev), arg) as R;
