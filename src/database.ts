@@ -12,6 +12,8 @@ const config = {
     },
 };
 
+const knex = createKnex(config);
+
 interface Image {
     id: number;
     timestamp: string;
@@ -21,11 +23,10 @@ interface Image {
 
 export const insertImage = (path: string, value: number) =>
     new Promise((resolve, reject) => {
-        const knex = createKnex(config);
-
         knex<Image>("image")
             .insert({ path, value })
             .then(resolve)
-            .catch(reject)
-            .finally(() => knex.destroy());
+            .catch(reject);
     });
+
+export const destroyDatabaseConnection = () => knex.destroy();
