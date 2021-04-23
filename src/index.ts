@@ -43,8 +43,8 @@ const recognizeAndInsert = async () => {
 
     const result = await recognizeText(client, image);
 
-    const [[, , , [, valueString]]] = recognitionResponseToArray(result);
-    const value = Number(valueString);
+    const responseArray = recognitionResponseToArray(result);
+    const value = Number(responseArray[0][3][1]);
 
     insertImage(imagePath, value);
 };
