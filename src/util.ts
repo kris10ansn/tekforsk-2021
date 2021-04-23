@@ -15,12 +15,12 @@ export type LastElement<T extends any[]> = T[Length<DropFirst<T>>];
 export const logWithLabel = (label: string) => (...args: any) =>
     console.log(label, ...args);
 
-export const formatRecognitionResponse = (
+export const recognitionResponseToArray = (
     response: RecognizePrintedTextInStreamResponse
 ) =>
     response.regions?.map((region) =>
         region.lines?.map((line) => line.words?.map((word) => word.text))
-    );
+    ) as string[][][];
 
 const loadDotEnv = () => dotenv.config();
 
