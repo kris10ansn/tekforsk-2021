@@ -1,12 +1,12 @@
 import knex from "knex";
 
-knex({
+const db = knex({
     client: "mysql",
     connection: {
         host: "localhost",
         port: 3306,
         database: "ivar",
-        userName: "root",
+        user: "root",
         password: "ncWMI1w5yzdpD1KV",
         charset: "utf8",
     },
@@ -19,5 +19,7 @@ interface Image {
     value: number;
 }
 
-const insertImage = (path: string, value: number) =>
-    knex<Image>("image").insert({ path, value });
+export const insertImage = (path: string, value: number) =>
+    new Promise((resolve, reject) =>
+        db<Image>("image").insert({ path, value }).then(resolve).catch(reject)
+    );
