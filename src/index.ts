@@ -5,10 +5,11 @@ import {
     createPath,
     pipe,
     env,
-    formatRecognitionResponse,
+    recognitionResponseToArray,
     logWithLabel,
 } from "./util";
 import { captureImage } from "./webcam";
+import { insertImage } from "./database";
 
 const { KEY, ENDPOINT } = env();
 const client = createClient(KEY!, ENDPOINT!);
@@ -21,7 +22,7 @@ const recognizeAll = () => {
         .map(pipe(createDataPath, createStream))
         .forEach((image, i) =>
             recognizeText(client, image)
-                .then(formatRecognitionResponse)
+                .then(recognitionResponseToArray)
                 .then(logWithLabel(imageNames[i]))
         );
 };
@@ -31,7 +32,21 @@ const recognizeCapture = () => {
 
     captureImage(imagePath).then((image) => {
         recognizeText(client, image)
-            .then(formatRecognitionResponse)
+            .then(recognitionResponseToArray)
             .then(logWithLabel("webcam image"));
     });
 };
+
+const recognizeAndInsert = async () => {
+    const imagePath = createDataPath("2.jpg");
+    const image = createStream(imagePath);
+
+    const result = await recognizeText(client, image);
+
+    const [[, , , [, valueString]]] = recognitionResponseToArray(result);
+    const value = Number(valueString);
+
+    insertImage(imagePath, value);
+};
+
+recognizeAndInsert();
