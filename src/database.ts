@@ -1,4 +1,4 @@
-import knex from "knex";
+import createKnex from "knex";
 
 const config = {
     client: "mysql",
@@ -21,11 +21,11 @@ interface Image {
 
 export const insertImage = (path: string, value: number) =>
     new Promise((resolve, reject) => {
-        const db = knex(config);
+        const knex = createKnex(config);
 
-        db<Image>("image")
+        knex<Image>("image")
             .insert({ path, value })
             .then(resolve)
             .catch(reject)
-            .finally(() => db.destroy());
+            .finally(() => knex.destroy());
     });
