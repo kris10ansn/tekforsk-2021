@@ -1,4 +1,4 @@
-import createKnex from "knex";
+import Knex from "knex";
 
 const config = {
     client: "mysql",
@@ -12,21 +12,21 @@ const config = {
     },
 };
 
-const knex = createKnex(config);
+const knex = Knex(config);
 
 interface Image {
     id: number;
-    timestamp: string;
+    time: string;
     path: string;
     value: number;
 }
 
+const promise = <T>(query: Promise<T>): Promise<T> =>
+    new Promise((resolve, reject) => query.then(resolve).catch(reject));
+
 export const insertImage = (path: string, value: number) =>
-    new Promise((resolve, reject) => {
-        knex<Image>("image")
-            .insert({ path, value })
-            .then(resolve)
-            .catch(reject);
-    });
+    promise(knex<Image>("image").insert({ path, value }));
+
+export const getImages = () => promise(knex<Image>("image").select("*"));
 
 export const destroyDatabaseConnection = () => knex.destroy();
