@@ -7,14 +7,15 @@ const app = express();
 app.get("/images", async (_req, res) => {
     const images = await getImages();
     res.json(
-        images.map(({ time, value, path }) => ({
+        images.map(({ time, value, image }) => ({
             time,
             value,
-            path,
+            image,
         }))
     );
 });
 
 app.use(express.static(createPath("public")));
+app.use("/image", express.static(createPath("data")));
 
 app.listen(8080);

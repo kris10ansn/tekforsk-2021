@@ -38,7 +38,8 @@ export const recognizeCapture = () => {
 };
 
 export const recognizeAndInsert = async () => {
-    const imagePath = createDataPath("2.jpg");
+    const imageName = "2.jpg";
+    const imagePath = createDataPath(imageName);
     const image = createStream(imagePath);
 
     const result = await recognizeText(client, image);
@@ -46,7 +47,7 @@ export const recognizeAndInsert = async () => {
     const responseArray = recognitionResponseToArray(result);
     const value = Number(responseArray[0][3][1]);
 
-    insertImage(imagePath, value)
+    insertImage({ image: imageName, value })
         .then(logWithLabel("insert"))
         .finally(destroyDatabaseConnection);
 };
