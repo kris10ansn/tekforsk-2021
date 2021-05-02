@@ -5,14 +5,45 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>IVAR Prosjekt 2021</title>
+
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.4/chartist.min.js"
+            integrity="sha512-9rxMbTkN9JcgG5euudGbdIbhFZ7KGyAuVomdQDI9qXfPply9BJh0iqA7E/moLCatH2JD4xBGHwV6ezBkCpnjRQ=="
+            crossorigin="anonymous"
+        ></script>
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.4/chartist.min.css"
+            integrity="sha512-V0+DPzYyLzIiMiWCg3nNdY+NyIiK9bED/T1xNBj08CaIUyK3sXRpB26OUCIzujMevxY9TRJFHQIxTwgzb0jVLg=="
+            crossorigin="anonymous"
+        />
+
+        <style>
+            #chart {
+                width: 100%;
+                height: 600px;
+                user-select: none;
+            }
+
+            #chart .ct-point {
+                cursor: pointer;
+
+                transition: all 0.1s ease;
+            }
+
+            #chart .ct-point:hover {
+                stroke-width: 15px;
+            }
+        </style>
+
+        <script src="index.js" defer></script>
     </head>
     <body>
         <h1>Ivar Prosjekt 2021</h1>
 
-        <script>
-            fetch("/images")
-                .then((it) => it.json())
-                .then((images) => console.log(images));
-        </script>
+        <div id="chart"></div>
+
+        <div id="selected-point"></div>
     </body>
 </html>
