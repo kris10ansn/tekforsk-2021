@@ -35,6 +35,22 @@
             #chart .ct-point:hover {
                 stroke-width: 15px;
             }
+
+            #selected-point img {
+                width: 100%;
+            }
+
+            .container {
+                display: flex;
+            }
+
+            .container #chart {
+                flex-basis: 75%;
+            }
+
+            .container #selected-point {
+                flex-basis: 25%;
+            }
         </style>
 
         <script src="index.js" defer></script>
@@ -42,8 +58,9 @@
     <body>
         <h1>Ivar Prosjekt 2021</h1>
 
-        <div id="chart"></div>
-
-        <div id="selected-point"></div>
+        <div class="container">
+            <div id="chart"></div>
+            <div id="selected-point"></div>
+        </div>
     </body>
 </html>
