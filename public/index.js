@@ -71,24 +71,20 @@ window.addEventListener("load", () =>
                 }
             );
 
-            chart.on("draw", ({ type }) => {
-                if (type === "line") {
-                    const points = chart.svg._node.querySelectorAll(
-                        ".ct-point"
+            chart.on("created", () => {
+                const points = chart.svg._node.querySelectorAll(".ct-point");
+
+                points.forEach((point) => {
+                    const [date, value] = ctPointValues(point);
+                    const { image } = images.find(
+                        (it) => it.x.getTime() === date.getTime()
                     );
 
-                    points.forEach((point) => {
-                        const [date, value] = ctPointValues(point);
-                        const { image } = images.find(
-                            (it) => it.x.getTime() === date.getTime()
-                        );
-
-                        point.addEventListener(
-                            "click",
-                            select({ date, value, image })
-                        );
-                    });
-                }
+                    point.addEventListener(
+                        "click",
+                        select({ date, value, image })
+                    );
+                });
             });
         })
 );
