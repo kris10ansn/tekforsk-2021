@@ -17,7 +17,7 @@ const ctPointValues = (ctPointElement) =>
         .map(Number)
         .map((value, i) => (i === 0 ? new Date(value) : value));
 
-const select = ({ date, value }) => () => {
+const select = ({ date, value, image }) => () => {
     const element = document.querySelector("#selected-point");
     const pointElements = [
         ...document.querySelectorAll(".ct-series .ct-point"),
@@ -34,6 +34,7 @@ const select = ({ date, value }) => () => {
     element.innerHTML = `
         <h1>Capture for ${formatDate(date)}</h1>
         <p>Value: ${value}</p>
+        <img src="/image/${image}" >
     `;
 };
 
@@ -41,9 +42,10 @@ window.addEventListener("load", () =>
     fetch("/images")
         .then((it) => it.json())
         .then((images) =>
-            images.map(({ time, value }) => ({
+            images.map(({ time, value, ...values }) => ({
                 x: new Date(time),
                 y: value,
+                ...values,
             }))
         )
         .then((images) => {
@@ -74,12 +76,16 @@ window.addEventListener("load", () =>
                     const points = chart.svg._node.querySelectorAll(
                         ".ct-point"
                     );
+
                     points.forEach((point) => {
                         const [date, value] = ctPointValues(point);
+                        const { image } = images.find(
+                            (it) => it.x.getTime() === date.getTime()
+                        );
 
                         point.addEventListener(
                             "click",
-                            select({ date, value })
+                            select({ date, value, image })
                         );
                     });
                 }
