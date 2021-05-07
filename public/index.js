@@ -41,21 +41,21 @@ const select = ({ date, value, image }) => () => {
 window.addEventListener("load", () =>
     fetch("/api/captures")
         .then((it) => it.json())
-        .then((images) =>
-            images.map(({ time, value, ...values }) => ({
+        .then((captures) =>
+            captures.map(({ time, value, ...values }) => ({
                 x: new Date(time),
                 y: value,
                 ...values,
             }))
         )
-        .then((images) => {
+        .then((captures) => {
             const chart = new Chartist.Line(
                 "#chart",
                 {
                     series: [
                         {
                             name: "data",
-                            data: images,
+                            data: captures,
                         },
                     ],
                 },
@@ -64,7 +64,7 @@ window.addEventListener("load", () =>
                         type: Chartist.FixedScaleAxis,
                         divisor: 5,
                         labelInterpolationFnc: (_, index) => {
-                            const date = images[index].x;
+                            const date = captures[index].x;
                             return formatDate(date);
                         },
                     },
@@ -76,7 +76,7 @@ window.addEventListener("load", () =>
 
                 points.forEach((point) => {
                     const [date, value] = ctPointValues(point);
-                    const { image } = images.find(
+                    const { image } = captures.find(
                         (it) => it.x.getTime() === date.getTime()
                     );
 
