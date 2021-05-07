@@ -4,16 +4,17 @@ import { createPath } from "./util";
 
 const app = express();
 
-app.get("/api/images", async (_req, res) => {
-    const images = await getImages();
-    res.json(
-        images.map(({ time, value, image }) => ({
-            time,
-            value,
-            image,
-        }))
-    );
-});
+app.get("/api/images", async (_req, res) =>
+    getImages().then((images) =>
+        res.json(
+            images.map(({ time, value, image }) => ({
+                time,
+                value,
+                image,
+            }))
+        )
+    )
+);
 
 app.use(express.static(createPath("public")));
 app.use("/image", express.static(createPath("data")));
