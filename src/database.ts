@@ -14,7 +14,7 @@ const config = {
 
 const knex = Knex(config);
 
-interface Image {
+interface Capture {
     id: number;
     time: string;
     image: string;
@@ -24,9 +24,10 @@ interface Image {
 const promise = <T>(query: Promise<T>): Promise<T> =>
     new Promise((resolve, reject) => query.then(resolve).catch(reject));
 
-export const insertImage = (image: { [key in keyof Image]?: Image[key] }) =>
-    promise(knex<Image>("image").insert(image));
+export const insertCapture = (
+    capture: { [key in keyof Capture]?: Capture[key] }
+) => promise(knex<Capture>("capture").insert(capture));
 
-export const getImages = () => promise(knex<Image>("image").select("*"));
+export const getCaptures = () => promise(knex<Capture>("capture").select("*"));
 
 export const destroyDatabaseConnection = () => knex.destroy();

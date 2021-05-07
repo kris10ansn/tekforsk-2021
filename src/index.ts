@@ -1,13 +1,13 @@
 import express from "express";
-import { getImages } from "./database";
+import { getCaptures } from "./database";
 import { createPath } from "./util";
 
 const app = express();
 
-app.get("/api/images", async (_req, res) =>
-    getImages().then((images) =>
+app.get("/api/captures", async (_req, res) =>
+    getCaptures().then((captures) =>
         res.json(
-            images.map(({ time, value, image }) => ({
+            captures.map(({ time, value, image }) => ({
                 time,
                 value,
                 image,

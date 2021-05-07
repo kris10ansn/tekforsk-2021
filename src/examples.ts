@@ -1,5 +1,5 @@
 import { createClient, recognizeText } from "./azure";
-import { insertImage, destroyDatabaseConnection } from "./database";
+import { insertCapture, destroyDatabaseConnection } from "./database";
 import { createStream, dataPathFactory } from "./files";
 import {
     pipe,
@@ -47,7 +47,7 @@ export const recognizeAndInsert = async () => {
     const responseArray = recognitionResponseToArray(result);
     const value = Number(responseArray[0][3][1]);
 
-    insertImage({ image: imageName, value })
+    insertCapture({ image: imageName, value })
         .then(logWithLabel("insert"))
         .finally(destroyDatabaseConnection);
 };
