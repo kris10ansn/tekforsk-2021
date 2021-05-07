@@ -4,7 +4,7 @@ import { createPath } from "./util";
 
 const app = express();
 
-app.get("/images", async (_req, res) => {
+app.get("/api/images", async (_req, res) => {
     const images = await getImages();
     res.json(
         images.map(({ time, value, image }) => ({

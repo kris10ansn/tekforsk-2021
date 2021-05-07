@@ -39,7 +39,7 @@ const select = ({ date, value, image }) => () => {
 };
 
 window.addEventListener("load", () =>
-    fetch("/images")
+    fetch("/api/images")
         .then((it) => it.json())
         .then((images) =>
             images.map(({ time, value, ...values }) => ({
