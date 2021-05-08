@@ -4,9 +4,9 @@ import { createPath } from "./util";
 
 const app = express();
 
-app.get("/api/captures", async (_req, res) =>
+app.get("/api/captures", async (_request, response) =>
     getCaptures().then((captures) =>
-        res.json(
+        response.json(
             captures.map(({ time, value, image }) => ({
                 time,
                 value,
