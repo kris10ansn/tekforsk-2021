@@ -37,17 +37,18 @@ export const recognizeCapture = () => {
     });
 };
 
-export const recognizeAndInsert = async () => {
+export const recognizeAndInsert = () => {
     const imageName = "2.jpg";
     const imagePath = createDataPath(imageName);
     const image = createStream(imagePath);
 
-    const result = await recognizeText(client, image);
+    recognizeText(client, image)
+        .then(recognitionResponseToArray)
+        .then((result) => {
+            const value = Number(result[0][3][1]);
 
-    const responseArray = recognitionResponseToArray(result);
-    const value = Number(responseArray[0][3][1]);
-
-    insertCapture({ image: imageName, value })
-        .then(logWithLabel("insert"))
-        .finally(destroyDatabaseConnection);
+            insertCapture({ image: imageName, value })
+                .then(logWithLabel("insert"))
+                .finally(destroyDatabaseConnection);
+        });
 };
