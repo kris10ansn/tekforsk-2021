@@ -62,6 +62,7 @@ window.addEventListener("load", () =>
                 {
                     axisX: {
                         type: Chartist.FixedScaleAxis,
+                        divisor: 5, // Number of labels
                         labelInterpolationFnc: (value) =>
                             formatDate(new Date(value)),
                     },
