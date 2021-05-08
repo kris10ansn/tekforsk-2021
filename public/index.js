@@ -62,11 +62,8 @@ window.addEventListener("load", () =>
                 {
                     axisX: {
                         type: Chartist.FixedScaleAxis,
-                        divisor: 5,
-                        labelInterpolationFnc: (_, index) => {
-                            const date = captures[index].x;
-                            return formatDate(date);
-                        },
+                        labelInterpolationFnc: (value) =>
+                            formatDate(new Date(value)),
                     },
                 }
             );
